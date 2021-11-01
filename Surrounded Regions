@@ -1,0 +1,63 @@
+/*
+@author : Darshika
+@Question Link : https://leetcode.com/problems/surrounded-regions/
+@Time Complexity : O(mn)
+@Space Complexity : O(mn)
+*/
+
+class Solution {
+    public void solve(char[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        boolean[][] visited = new boolean[board.length][board[0].length];
+        for(int i = 0;i<n;i++){
+            //System.out.println("Reached at "+i+" 0");
+            if(board[i][0] == 'O'){
+                //System.out.println("boundary is o at "+i+" ; "+0);
+                dfs(board,i,0,visited);
+            }
+        }
+        for(int j = 0;j<m;j++){
+            //System.out.println("Reached at "+(n-1)+" "+j);
+            if(board[n-1][j] == 'O'){
+                //System.out.println("boundary is o at "+(n-1)+" ; "+j);
+                dfs(board,n-1,j,visited);
+            }
+        }
+        for(int i = n-1;i>=0;i--){
+            //System.out.println("Reached at "+i+" "+(m-1));
+            if(board[i][m-1] == 'O'){
+                //System.out.println("boundary is o at "+i+" ; "+(m-1));
+                dfs(board,i,m-1,visited);
+            }
+        }
+        for(int j = m-1;j>=0;j--){
+            //System.out.println("Reached at  0 "+j);
+            if(board[0][j] == 'O'){
+                //System.out.println("boundary is o at "+0+" ; "+j);
+                dfs(board,0,j,visited);
+            }
+        }
+        for(int i = 0;i<n;i++){
+            for(int j = 0;j<m;j++){
+                if(board[i][j] == '1'){
+                    board[i][j] = 'O';
+                }else if(board[i][j] == 'O'){
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }
+    
+    private void dfs(char[][] board,int row,int col,boolean[][] visited){
+        if(row<0 || col<0 || row >= board.length || col >= board[0].length || board[row][col] != 'O' || visited[row][col] == true){
+            return;
+        }
+        visited[row][col] = true;
+        board[row][col] = '1';
+        dfs(board,row+1,col,visited);
+        dfs(board,row,col+1,visited);
+        dfs(board,row-1,col,visited);
+        dfs(board,row,col-1,visited);
+    }
+}
