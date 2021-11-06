@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ *
+ *@author: Darshika
+ *@Question Link: https://leetcode.com/problems/sum-root-to-leaf-numbers/
+ *@Time Complexity: O(n)
+ *@Space Complexity: O(1)
+ */
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        return findSum(root,0);
+    }
+    
+    private int findSum(TreeNode root,int val){
+        if(root == null){
+            return 0;
+        }
+        if(root.left == null && root.right == null){
+            return val*10+root.val;
+        }
+        int left = findSum(root.left,val*10+root.val);
+        int right = findSum(root.right,val*10+root.val);
+        return left+right;
+    }
+}
