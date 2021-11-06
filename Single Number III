@@ -1,0 +1,47 @@
+/*
+*@author: Darshika
+*@Question Link: https://leetcode.com/problems/single-number-iii/
+*@Time Complexity: O(n)
+*@Space Complexity: O(1)
+*/
+
+class Solution {
+    public int[] singleNumber(int[] nums) {
+        int xor = 0;
+        for(int val : nums){
+            xor ^= val;
+        }
+        //System.out.println(xor);
+        
+        //find first set bit of xor
+        int setBit = -1;
+        for(int i = 0;i<32;i++){
+            if((xor & (1<<i))!=0){
+                setBit = i;
+                break;
+            }
+        }
+        //System.out.println(setBit);
+        
+        int[] res = new int[2];
+        int setxor = 0;
+        int unsetxor = 0;
+        //separate xor numbers
+        for(int val : nums){
+            if((val & (1<<setBit))!=0){
+                //System.out.println("set "+val);
+                setxor ^= val;
+                //System.out.println("setxor value "+setxor);
+            }else{
+                //System.out.println("unset "+val);
+                unsetxor ^= val;
+                //System.out.println("unsetxor value "+unsetxor);
+            }
+        }
+        //System.out.println(setxor+" , "+unsetxor);
+        res[0] = setxor;
+        res[1] = unsetxor;
+        
+        return res;
+    }
+}
