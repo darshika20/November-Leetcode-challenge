@@ -1,0 +1,56 @@
+/*
+@author: Darshika
+@Question Link: https://leetcode.com/problems/multiply-strings/
+@Time Complexity: O(mn)
+@Space Complexity: O(m+n)
+*/
+
+class Solution {
+    public String multiply(String num1, String num2) {
+        int[] res = new int[num1.length()+num2.length()];
+        int k = res.length;
+        int c = 0;
+        for(int i = num2.length()-1;i>=0;i--,k--){
+            int idx = k-1;
+            int ch2 = (int)(num2.charAt(i))-'0';
+            for(int j = num1.length()-1;j>=0;j--){
+                int ch1 = (int)(num1.charAt(j)) - '0';
+                res[idx] += ((ch1*ch2)%10);
+                if((ch1*ch2)/10>0){
+                    res[idx-1] += (ch1*ch2)/10;
+                }
+                idx--;
+            }
+            //display(res);
+        }
+        for(int i = res.length-1;i>=0;i--){
+            if(res[i]>9){
+                res[i-1] += res[i]/10;
+                res[i] = res[i]%10;
+            }
+            
+        }
+        StringBuffer sb = new StringBuffer();
+        int i = 0;
+        for(;i<res.length;i++){
+            if(res[i]!=0){
+                break;
+            }
+           
+        }
+        for(;i<res.length;i++){
+            sb.append(res[i]);
+        }
+        if(sb.length() == 0){
+            return "0";
+        }
+        return sb.toString();
+    }
+    
+    private void display(int[] res){
+        for(int val : res){
+            System.out.print(val+" ");
+        }
+        System.out.println();
+    }
+}
