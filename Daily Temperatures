@@ -1,0 +1,27 @@
+/*
+@author: Darshika
+@Question Link: https://leetcode.com/problems/daily-temperatures/
+@Time Complexity: O(n)
+@Space Complexity: O(n)
+*/
+
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        Stack<Integer> temp = new Stack<>();
+        int[] res = new int[temperatures.length];
+        res[res.length-1] = 0;
+        temp.push(res.length-1);
+        for(int i = res.length-2;i>=0;i--){
+            while(temp.size()>0 && temperatures[i]>=temperatures[temp.peek()]){
+                temp.pop();
+            }
+            if(temp.size() == 0){
+                res[i] = 0;
+            }else{
+                res[i] = temp.peek()-i;
+            }
+            temp.push(i);
+        }
+        return res;
+    }
+}
