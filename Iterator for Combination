@@ -1,0 +1,52 @@
+/*
+@author: Darshika
+@Question Link: https://leetcode.com/problems/iterator-for-combination/
+@Time Complexity: O(2^n) // n -> combinationlength
+@Space Complexity: O(n)
+*/
+
+class CombinationIterator {
+    List<String> result = new ArrayList<>();
+    int idx = 0;
+    public CombinationIterator(String characters, int combinationLength) {
+        getPermutations(characters,new StringBuffer(),0,combinationLength);
+        //System.out.println(result);
+    }
+    
+    public String next() {
+        idx++;
+        return result.get(idx-1);
+    }
+    
+    public boolean hasNext() {
+        if(idx<result.size()){
+            return true;
+        }
+        return false;
+    }
+    
+    private void getPermutations(String s,StringBuffer res,int pos,int len){
+        //System.out.println("res value "+res+" pos "+pos+" len "+res.length());
+        if(s.length() == pos){
+            if(res.length() == len){
+                
+                result.add(res.toString());
+            }
+            return;
+        }
+        if(res.length() == len){
+            result.add(res.toString());
+            return;
+        }
+        getPermutations(s,res.append(s.charAt(pos)),pos+1,len);
+        res.deleteCharAt(res.length()-1);
+        getPermutations(s,res,pos+1,len);
+    }
+}
+
+/**
+ * Your CombinationIterator object will be instantiated and called as such:
+ * CombinationIterator obj = new CombinationIterator(characters, combinationLength);
+ * String param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
