@@ -1,0 +1,20 @@
+/*
+@author: Darshika
+@Question Link: https://leetcode.com/problems/unique-paths/
+@Time Complexity: O(m or n, whichever is smaller)
+@Space Complexity: O(1)
+*/
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        double small = Math.min(m,n)-1;
+        double tot = m+n-2;
+        //find totCsmall
+        double res = 1.0;
+        for(double i = 1;i<=small;i++){
+            res = res * (tot-i+1.0)/i;
+            //System.out.println(res);
+        }
+        return (int)res;
+    }
+}
