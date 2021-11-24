@@ -1,0 +1,35 @@
+/*
+@author: Darshika
+@Question Link: https://leetcode.com/problems/interval-list-intersections/
+@Time Complexity: O(m+n)
+@Space Complexity: O(m+n)
+*/
+
+class Solution {
+    public int[][] intervalIntersection(int[][] firstList, int[][] secondList) {
+        
+        int i = 0;
+        int j = 0;
+        List<int[]> ans = new ArrayList<>();
+        int mE = -1;
+        int mS = -1;
+        
+        while(i<firstList.length && j<secondList.length){
+            mS = Math.max(firstList[i][0],secondList[j][0]);
+            mE = Math.min(firstList[i][1],secondList[j][1]);
+            if(mS<=mE){
+                int[] range = new int[2];
+                range[0] = mS;
+                range[1] = mE;
+                ans.add(range);
+            }
+            if(secondList[j][1] >= firstList[i][1]){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        
+        return ans.toArray(new int[ans.size()][2]);
+    }
+}
